@@ -24,7 +24,10 @@ const routes = [
     //     path: '/panama', name: 'Panama Leaks', component: () => import(/* webpackChunkName: 'Panama' */'../views/Phase 3/PanamView.vue')
     // },
     {
-        path: '/destination/:id/:slug', name: 'Destination', component: () => import('@/views/Phase 3/DestinationShow.vue')
+        path: '/destination/:id/:slug', 
+        name: 'Destination', 
+        component: () => import('@/views/Phase 3/DestinationShow.vue'),
+        props: route => ({ id: parseInt(route.params.id) })
     },
 
 

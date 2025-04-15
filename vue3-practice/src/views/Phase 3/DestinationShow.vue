@@ -14,18 +14,27 @@
 <script>
 import sourceData from '@/data.json';
 export default {
+
     // Here data was created with destination property as null so that we can assign it directly from the api response
     // data() {
     //     return {
     //         destination: null
     //     }
     // },
+
+    // Using props for route other than $route.params.id
+    props: {
+        id: {type: Number, required: true}
+    },
     computed: {
-        destinationId() {
-            return parseInt(this.$route.params.id)
-        },
+        
+        // This destinationId needs to be removed/commented out if using props
+        // destinationId() {
+        //     return parseInt(this.$route.params.id)
+        // },
+
         destination() {
-            return sourceData.destinations.find(item => item.id === this.destinationId)
+            return sourceData.destinations.find((item) => item.id === this.id)
         }
     },
 
@@ -48,8 +57,9 @@ export default {
     //     try {
     //         await this.initData()
             
-    //         // Watch applied so that data will be rendered accurate as per route params
-    //         // We will use another approach using key attribute in router-view which will work almost same as watch but will take a bit more than watch
+    // Watch applied so that data will be rendered accurate as per route params
+    // We will use another approach using key attribute in router-view which will work almost same as watch but will take a bit more than watch
+
     //         this.$watch(() => this.$route.params, this.initData)
     //     }
     //     catch (error) {
