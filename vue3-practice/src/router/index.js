@@ -4,6 +4,7 @@
 // import Table from '@/components/Table.vue';
 import HomeView from '@/views/Phase 3/HomeView.vue';
 import { createRouter, createWebHistory } from 'vue-router'
+import sourceData from '@/data.json'
 
 const routes = [
     // Phase 3
@@ -15,6 +16,16 @@ const routes = [
         name: 'Destination', 
         component: () => import('@/views/Phase 3/DestinationShow.vue'),
         props: route => ({ ...route.params, id: parseInt(route.params.id) }),
+        beforeEnter(to, from) {
+            console.log("To: ", to)
+            console.log("From: ", from)
+            const ifExist = sourceData.destinations.find((destination) => destination.id === parseInt(to.params.id))
+            console.log("Check if exists: ", ifExist)
+
+            if(!ifExist) {
+                return { name: 'NotFound' }
+            }
+        },
         children: [
             {
                 path: ':experienceSlug', 
