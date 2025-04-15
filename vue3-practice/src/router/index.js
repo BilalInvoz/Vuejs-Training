@@ -10,19 +10,6 @@ const routes = [
     {
         path: '/', name: 'Home', component: HomeView
     },
-    // Removed as no need for static routes but just keeping for reference 
-    // {
-    //     path: '/brazil', name: 'Brazil', component: () => import(/* webpackChunkName: 'Brazil' */'../views/Phase 3/BrazilView.vue')
-    // },
-    // {
-    //     path: '/jamaica', name: 'Jamaicadddddddd', component: () => import(/* webpackChunkName: 'Jamaica' */'../views/Phase 3/JamaicaView.vue')
-    // },
-    // {
-    //     path: '/hawaii', name: 'Huawaii', component: () => import(/* webpackChunkName: 'Hawaii' */'../views/Phase 3/HuwaiiView.vue')
-    // },
-    // {
-    //     path: '/panama', name: 'Panama Leaks', component: () => import(/* webpackChunkName: 'Panama' */'../views/Phase 3/PanamView.vue')
-    // },
     {
         path: '/destination/:id/:slug', 
         name: 'Destination', 
@@ -37,6 +24,13 @@ const routes = [
             },
         ]
     },
+
+    // Route for not found page
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: () => import('@/views/Phase 3/NotFound.vue')
+    }
 
 
     // Phase 1 and Phase 2

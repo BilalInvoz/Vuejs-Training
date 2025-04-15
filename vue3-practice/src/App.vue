@@ -43,13 +43,7 @@
   <TheNavigation />
 
     <div class="container">
-      
-      <!-- Adding a tranisition -->
-      <router-view v-slot="{Component}">
-        <transition name="slide" mode="out-in">
-          <component :is="Component" :key="$route.path"></component>
-        </transition>
-      </router-view>
+      <router-view></router-view>
 
       <!-- Alternate approach using key below than to use watch() -->
       <!-- <router-view :key="$route.path"></router-view> -->
@@ -65,17 +59,3 @@ export default {
   }
 }
 </script>
-
-<!-- Styles for transistion -->
- <style lang="css">
-   .slide-enter-active,
-   .slide-leave-active {
-    transition: opacity 0.3s, transform 0.3s;
-   }
-
-   .slide-enter-from,
-   .slide-leave-to {
-    opacity: 0;
-    transform: translateX(-30%);
-   }
- </style>
