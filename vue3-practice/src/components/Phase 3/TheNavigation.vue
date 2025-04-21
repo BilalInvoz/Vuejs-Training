@@ -5,6 +5,10 @@
       :to="{ name: 'Destination', params: { id: destination.id, slug: destination.slug } }">
       {{ destination.name }}
     </router-link>
+
+    <router-link :to="{name: 'Protected'}">
+      Dashboard
+    </router-link>
   </div>
 </template>
 

@@ -16,14 +16,22 @@ const routes = [
         name: 'Destination', 
         component: () => import('@/views/Phase 3/DestinationShow.vue'),
         props: route => ({ ...route.params, id: parseInt(route.params.id) }),
+
+        // Per-route Nav Guard
         beforeEnter(to, from) {
-            console.log("To: ", to)
+            console.log("To: ", to.path.split('/').splice(1))
             console.log("From: ", from)
             const ifExist = sourceData.destinations.find((destination) => destination.id === parseInt(to.params.id))
             console.log("Check if exists: ", ifExist)
 
             if(!ifExist) {
-                return { name: 'NotFound' }
+                return { 
+                    name: 'NotFound',
+                    // For keeping the url which is being tried to load
+                    params: { pathMatch: to.path.split('/').splice(1) },
+                    query: to.query,
+                    hash: to.hash
+                }
             }
         },
         children: [
@@ -41,6 +49,31 @@ const routes = [
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: () => import('@/views/Phase 3/NotFound.vue')
+    },
+
+    // For global navigation guard
+    {
+        path: '/protected',
+        name: 'Protected',
+        component: () => import('@/views/Phase 3/ProtectedView.vue'),
+        meta: {
+            requiresAuth: true
+        }
+    },
+
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/Phase 3/LoginPage.vue')
+    },
+
+    {
+        path: '/invoices',
+        name: 'Invoices',
+        component: () => import('@/views/Phase 3/InvoicesView.vue'),
+        meta: {
+            requiresAuth: true
+        }
     }
 
 
@@ -62,6 +95,20 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+// Global Nav Guard
+router.beforeEach((to) => {
+    if(to.meta.requiresAuth && !window.user) {
+        // need to login first to access this route
+        const res = {
+            name: 'Login',
+            query: {redirect: to.fullPath}
+        }
+
+        console.log("Check res from global nav guard: ", res)
+        return res;
+    }
 })
 
 export default router;
