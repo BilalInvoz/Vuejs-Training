@@ -13,7 +13,7 @@
 
 
 <!-- Using Options API -->
-<script>
+<!-- <script>
 export default {
     data() {
         return {
@@ -31,4 +31,32 @@ export default {
         }
     }
 }
-</script>
+</script> -->
+
+<!-- Using Composition API -->
+ <script>
+import { ref } from 'vue'
+import {useRouter, useRoute} from 'vue-router'
+
+ export default {
+    setup() {
+        const username = ref('')
+        const password = ref('')
+        const route = useRoute()
+        const router = useRouter()
+
+        const login = () => {
+            window.user = username.value
+            const redirectPath = route.query.redirect || '/protected'
+            console.log("Check redirect path: ", redirectPath)
+            router.push(redirectPath)
+        }
+
+        return {
+            username, 
+            password,
+            login
+        }
+    },
+ }
+ </script>
