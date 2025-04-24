@@ -1,9 +1,9 @@
 <template>
     <div>
         <h1>
-            Hi, {{ username }}! You are now on protected route
+            Hi, {{ store.username }}! You are now on protected route
         </h1>
-        <button @click="logOut">Log Out</button>
+        <button @click="handleLogOut">Log Out</button>
         <router-link :to="{name: 'Invoices'}">
             <button>Invoices</button>
         </router-link>
@@ -11,17 +11,24 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            username: window.user
-        }
-    },
+import { usePiniaStore } from '@/stores/store';
+import { useRouter } from 'vue-router';
 
-    methods: {
-        logOut() {
-            window.user = null
-            this.$router.push({ name: 'Home' })
+export default {
+    // Composition api for using pinia
+    setup() {
+        const store = usePiniaStore()
+        const router = useRouter()
+
+        console.log("Router from protected file: ", router)
+
+        const handleLogOut = () => {
+            store.logOut(router)
+        }
+
+        return {
+            store,
+            handleLogOut
         }
     }
 }

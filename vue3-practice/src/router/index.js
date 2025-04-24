@@ -1,7 +1,3 @@
-// import Home from '@/components/Home.vue';
-// import ParentCounter from '@/components/ParentCounter.vue';
-// import StyleComponent from '@/components/StyleComponent.vue';
-// import Table from '@/components/Table.vue';
 import HomeView from '@/views/Phase 3/HomeView.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 import sourceData from '@/data.json'
@@ -56,7 +52,8 @@ const routes = [
         path: '/protected',
         name: 'Protected',
         component: () => import('@/views/Phase 3/ProtectedView.vue'),
-        meta: {
+        meta:
+        {
             requiresAuth: true
         }
     },
@@ -71,7 +68,8 @@ const routes = [
         path: '/invoices',
         name: 'Invoices',
         component: () => import('@/views/Phase 3/InvoicesView.vue'),
-        meta: {
+        meta: 
+        {
             requiresAuth: true
         }
     }
@@ -92,21 +90,34 @@ const routes = [
     // },
 ]
 
+// Global Nav Guard
+// router.beforeEach((to) => {
+//     if(to.meta.requiresAuth && !window.user) {
+//         // need to login first to access this route
+//         const res = {
+//             name: 'Login',
+//             query: {redirect: to.fullPath}
+//         }
+
+//         console.log("Check res from global nav guard: ", res)
+//         return res;
+//     }
+// })
+
 const router = createRouter({
     history: createWebHistory(),
     routes
 })
 
-// Global Nav Guard
+// Use Pinia for fake authenticate
 router.beforeEach((to) => {
-    if(to.meta.requiresAuth && !window.user) {
+    if (to.meta.requiresAuth && !window.user) {
         // need to login first to access this route
         const res = {
             name: 'Login',
-            query: {redirect: to.fullPath}
+            query: { redirect: to.fullPath }
         }
 
-        console.log("Check res from global nav guard: ", res)
         return res;
     }
 })

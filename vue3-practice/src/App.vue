@@ -37,7 +37,7 @@
 <!-- } -->
 <!-- </script> -->
 
-
+<!-- Travel App for Vue Router 4 -->
 <template>
   <div>
   <TheNavigation />
@@ -53,9 +53,14 @@
 
 <script>
 import TheNavigation from './components/Phase 3/TheNavigation.vue'
+
 export default {
   components: {
-    TheNavigation
+    // For Travel App
+    TheNavigation,
   }
 }
 </script>
+
+<style>
+</style>
